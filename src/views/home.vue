@@ -1,33 +1,51 @@
 <template>
-  <div class="demo-image__lazy">
-    <el-image v-for="url in urls" :key="url" :src="url" lazy />
-  </div>
+  <div id="container" />
+  <!-- <canvas></canvas> -->
 </template>
 
-<script lang="ts" setup>
-const urls = [
-  "https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg",
-  "https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg",
-  "https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg",
-  "https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg",
-  "https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg",
-  "https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg",
-  "https://fuss10.elemecdn.com/2/11/6535bcfb26e4c79b48ddde44f4b6fjpeg.jpeg",
-];
+<script  setup>
+import * as THREE from "three";
+import { onMounted } from "vue";
+onMounted(() => {
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
+  );
+  const container = document.getElementById("container");
+  console.log("container", container);
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  // document.body.appendChild(renderer.domElement);
+  container.appendChild(renderer.domElement);
+
+  const geometry = new THREE.BoxGeometry(1, 1, 1);
+  const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+  const cube = new THREE.Mesh(geometry, material);
+  scene.add(cube);
+
+  camera.position.z = 5;
+
+  const animate = () => {
+    requestAnimationFrame(animate);
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
+    renderer.render(scene, camera);
+  };
+  animate();
+});
 </script>
 
 <style scoped>
-.demo-image__lazy {
-  width: 500px;
+#three {
   height: 400px;
-  overflow-y: auto;
-}
-.demo-image__lazy .el-image {
-  display: block;
-  min-height: 200px;
-  margin-bottom: 10px;
-}
-.demo-image__lazy .el-image:last-child {
-  margin-bottom: 0;
+  /* width: 1000px;
+  height: 1000px; */
+  /* background: red; */
+  /* position: fixed;
+  left: 0;
+  top: 0; */
 }
 </style>
