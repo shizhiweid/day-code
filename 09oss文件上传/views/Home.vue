@@ -24,7 +24,17 @@ import { ElMessage, ElMessageBox } from "element-plus";
 import OSS from "ali-oss";
 const objData = reactive({});
 const client = new OSS({
-
+  // 填写Bucket名称。
+  bucket: "shizhiwei123",
+  // yourRegion填写Bucket所在地域。以华东1（杭州）为例，yourRegion填写为oss-cn-hangzhou。
+  region: "oss-cn-hangzhou",
+  endpoint: "oss-cn-hangzhou.aliyuncs.com",
+  // 从STS服务获取的临时访问密钥（AccessKey ID和AccessKey Secret）。
+  accessKeyId: "",
+  accessKeySecret: "",
+  // 从STS服务获取的安全令牌（SecurityToken）。
+  // stsToken: "yourSecurityToken",
+  secure: true,
 });
 
 // 创建并填写Blob数据。
