@@ -9,8 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "ali-oss": "^6.21.0",
     "axios": "^1.6.8",
     "element-plus": "^2.6.1",
+    "pinia": "^2.1.7",
     "spark-md5": "^3.0.2",
     "three": "^0.162.0",
     "vue": "^3.4.21"
